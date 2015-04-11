@@ -1,5 +1,6 @@
-/public/javascripts/app/**
-/public/javascripts/main.js
-/app.js
-/lib/**
-*.sw+
+public/javascripts/app/*
+public/javascripts/main.js
+app.js
+lib/*
+**.*.sw*
+TAGS
