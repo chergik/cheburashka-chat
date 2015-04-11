@@ -1,6 +1,7 @@
 # cheburashka-chat
 ## Tech involved:
   - Node.js
+  - Express.js
   - common.js
   - socket.io
   - require.js (client side)
