@@ -30,24 +30,25 @@ chatserver = (io) ->
 
     # Client disconnected (e.g. user closed browser).
     client.on 'disconnect', ->
+      console.log "Client disconnected: #{client.name}"
       return if not client.name
 
       # Emit message so that remote clients remove user from the lists.
       client.broadcast.emit 'left', client.name
 
       # Tell other users, that this one left.
-      client.broadcast.emit 'message', "User #{client.name} left "
+      client.broadcast.emit 'chat message', {user: 'chatbot', message: "User #{client.name} left"}
 
       # Remove user from the Redis.
       redisClient.srem 'users', client.name
 
     # Client sent chat message.
-    client.on 'message', (msg) ->
+    client.on 'chat message', (msg) ->
       console.log "#{client.name}:#{msg}"
       addMessage client.name, msg
       message = {user: client.name, message: msg}
-      client.broadcast.emit 'message', message
-      client.emit 'message', message
+      client.broadcast.emit 'chat message', message
+      client.emit 'chat message', message
 
     # Client joined (e.g. officially joined the chat by clicking join).
     client.on 'join', (username) ->
@@ -62,8 +63,11 @@ chatserver = (io) ->
         console.log greeting
 
         # Notify other chat members that new user joined.
-        client.broadcast.emit 'join',    client.name
-        client.broadcast.emit 'message', greeting
+        client.broadcast.emit 'join',         client.name
+        client.broadcast.emit 'chat message', {user: 'chatbot', message: greeting}
+
+        # Store join message in the backlog.
+        addMessage 'chatbot', greeting
 
         # For each member stored in Redis.
         redisClient.smembers 'users', (err, users) ->
@@ -76,7 +80,12 @@ chatserver = (io) ->
             unless err?
               for message in messages.reverse()
                 message = JSON.parse message
-                client.emit 'message', {user: message.name, message: message.data}
+                client.emit 'chat message', {user: message.name, message: message.data}
+
+              # Welcome new user.
+              client.emit 'chat message',
+                user: 'chatbot', message: "Welcome to the chat #{client.name}!"
+
             else
               console.log "ERROR: #{err}"
     , null

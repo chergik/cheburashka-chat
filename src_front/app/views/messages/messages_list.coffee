@@ -3,8 +3,8 @@ define (require) ->
 
   Backbone              = require 'backbone'
   Message               = require 'models/message'
-  MessageView           = require 'views/message'
-  messagesListTemplate  = require 'templates/messages_list'
+  MessageView           = require 'views/messages/message'
+  messagesListTemplate  = require 'templates/messages/messages_list'
   ebus                  = require('lib/event_bus')() # EventBus singelton.
 
   MessagesListView = Backbone.View.extend
@@ -22,7 +22,7 @@ define (require) ->
       # When message arrives from the server socket we should add new
       # message model to the collection of messages.
       # ebus even 'message' is triggered by the Chat as soon as Chat gets
-      # the event 'message' from the server.
+      # the event 'chat message' from the server.
       ebus.on 'message', (data) =>
         @.collection.add new Message(user: data.user, message: data.message)
 
@@ -33,11 +33,14 @@ define (require) ->
 
       # For each model in the collection
       # create messageView and append it to the current $el.
-      @.addOne(model) for model in @.collection
+      @.addAll()
 
       return @
 
-    addOne: (model) =>
+    addOne: (model) ->
       newMessage = new MessageView(model: model)
       @.$el.append newMessage.render().el
+
+    addAll: () ->
+      @.addOne(messageModel) for messageModel in @.collection.models
 

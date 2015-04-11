@@ -3,7 +3,7 @@ define (require) ->
 
   Backbone        = require 'backbone'
   Message         = require 'models/message'
-  messageTemplate = require 'templates/message'
+  messageTemplate = require 'templates/messages/message'
 
   MessageView = Backbone.View.extend
     tagName: 'li'

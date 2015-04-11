@@ -5,7 +5,7 @@
     var Backbone, Message, MessageView, messageTemplate;
     Backbone = require('backbone');
     Message = require('models/message');
-    messageTemplate = require('templates/message');
+    messageTemplate = require('templates/messages/message');
     return MessageView = Backbone.View.extend({
       tagName: 'li',
       template: messageTemplate,

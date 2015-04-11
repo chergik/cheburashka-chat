@@ -5,8 +5,8 @@
     var Backbone, Message, MessageView, MessagesListView, ebus, messagesListTemplate;
     Backbone = require('backbone');
     Message = require('models/message');
-    MessageView = require('views/message');
-    messagesListTemplate = require('templates/messages_list');
+    MessageView = require('views/messages/message');
+    messagesListTemplate = require('templates/messages/messages_list');
     ebus = require('lib/event_bus')();
     return MessagesListView = Backbone.View.extend({
       tagName: 'ul',
@@ -24,24 +24,27 @@
         })(this));
       },
       render: function() {
-        var model, _i, _len, _ref;
         this.$el.html(this.template());
-        _ref = this.collection;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          model = _ref[_i];
-          this.addOne(model);
-        }
+        this.addAll();
         return this;
       },
-      addOne: (function(_this) {
-        return function(model) {
-          var newMessage;
-          newMessage = new MessageView({
-            model: model
-          });
-          return _this.$el.append(newMessage.render().el);
-        };
-      })(this)
+      addOne: function(model) {
+        var newMessage;
+        newMessage = new MessageView({
+          model: model
+        });
+        return this.$el.append(newMessage.render().el);
+      },
+      addAll: function() {
+        var messageModel, _i, _len, _ref, _results;
+        _ref = this.collection.models;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          messageModel = _ref[_i];
+          _results.push(this.addOne(messageModel));
+        }
+        return _results;
+      }
     });
   });
 

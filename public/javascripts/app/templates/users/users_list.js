@@ -5,7 +5,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 
-;return buf.join("");
+var jade_indent = [];;return buf.join("");
 };
 
 });

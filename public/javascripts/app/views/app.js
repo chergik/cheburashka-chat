@@ -2,11 +2,13 @@
 (function() {
   'use strict';
   define(function(require) {
-    var AppView, Backbone, MessageBoxView, MessagesCollection, UsersCollection, chat;
+    var AppView, Backbone, MessageBoxView, MessagesCollection, MessagesListView, UsersCollection, UsersListView, chat;
     Backbone = require('backbone');
     UsersCollection = require('collections/users');
     MessagesCollection = require('collections/messages');
-    MessageBoxView = require('views/message_box');
+    MessageBoxView = require('views/messages/message_box');
+    UsersListView = require('views/users/users_list');
+    MessagesListView = require('views/messages/messages_list');
     chat = require('lib/chat')();
     return AppView = Backbone.View.extend({
       el: '#app',
@@ -24,42 +26,8 @@
         this.$el.append(messagesListView.render().el);
         messageBoxView = new MessageBoxView();
         this.$el.append(messageBoxView.render().el);
-        chat.join(this.username);
+        chat.joinUser(this.username);
         return this;
-
-        /*
-        socket = io()
-        username = prompt "What is your name?"
-        
-        $('h2.username').text username
-        $('title').text "Chat: #{username}"
-        form = $('form[name="send_message"]')
-        message = form.find 'input[name="message"]'
-        
-        addMessage = (msg) ->
-          $('ul.messages').append $("<li class='message'>").html(msg)
-        
-        addUser = (user) ->
-          $('ul.users').append $("<li class='user' data-name='#{user}'>")
-            .html(user)
-        
-        remUser = (username) ->
-          $("ul.users li[data-name=#{username}]").remove()
-        
-        socket.on 'remove user', remUser
-        
-        socket.on 'chat message', addMessage
-        
-        socket.on 'join', addUser
-        
-        form.submit (e) ->
-          e.preventDefault()
-          socket.emit 'chat message', $(message).val()
-          $(message).val ''
-          false
-        
-        socket.emit 'join', username
-         */
       }
     });
   });

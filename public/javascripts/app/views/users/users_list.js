@@ -5,8 +5,8 @@
     var Backbone, User, UserView, UsersListView, ebus, usersListTemplate;
     Backbone = require('backbone');
     User = require('models/user');
-    UserView = require('views/user');
-    usersListTemplate = require('templates/users_list');
+    UserView = require('views/users/user');
+    usersListTemplate = require('templates/users/users_list');
     ebus = require('lib/event_bus')();
     return UsersListView = Backbone.View.extend({
       tagName: 'ul',
@@ -24,27 +24,18 @@
           return function(user) {
             var usersToRemove;
             usersToRemove = _this.collection.where({
-              name: user
+              user: user
             });
             return _this.collection.remove(usersToRemove);
           };
         })(this));
-        this.listentTo(this.collection, 'add', this.addOne);
-        return this.listentTo(this.collection, 'remove', this.render());
+        this.listenTo(this.collection, 'add', this.addOne);
+        return this.listenTo(this.collection, 'remove', this.render);
       },
       render: function() {
         this.$el.html(this.template());
-        return addAll();
-      },
-      addAll: function() {
-        var userModel, _i, _len, _ref, _results;
-        _ref = this.collection;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          userModel = _ref[_i];
-          _results.push(addOne(userModel));
-        }
-        return _results;
+        this.addAll();
+        return this;
       },
       addOne: function(model) {
         var newUserView;
@@ -52,6 +43,16 @@
           model: model
         });
         return this.$el.append(newUserView.render().el);
+      },
+      addAll: function() {
+        var userModel, _i, _len, _ref, _results;
+        _ref = this.collection.models;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          userModel = _ref[_i];
+          _results.push(this.addOne(userModel));
+        }
+        return _results;
       }
     });
   });

@@ -10,7 +10,7 @@
       }
 
       Chat.prototype.sendMessage = function(msg) {
-        return io.emit('message', msg);
+        return io.emit('chat message', msg);
       };
 
       Chat.prototype.joinUser = function(user) {
@@ -18,7 +18,7 @@
       };
 
       Chat.prototype.setupHandlers = function() {
-        io.on('message', function(data) {
+        io.on('chat message', function(data) {
           return ebus.trigger('message', data);
         });
         io.on('join', function(user) {

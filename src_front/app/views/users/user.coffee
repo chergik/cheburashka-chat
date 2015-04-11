@@ -3,7 +3,7 @@ define (require) ->
 
   Backbone     = require 'backbone'
   User         = require 'models/user'
-  userTemplate = require 'templates/user'
+  userTemplate = require 'templates/users/user'
 
   UserView = Backbone.View.extend
     tagName: 'li'
@@ -11,6 +11,6 @@ define (require) ->
     template: userTemplate
 
     render: ->
-      @.$el.html @.template.render(@.model.attributes)
+      @.$el.html @.template(@.model.attributes)
       return @
 

@@ -9,7 +9,7 @@ gulp.task('default', function() {
 
 gulp.task('templates', function(){
   gulp.src('./src_front/app/templates/**/*.jade')
-    .pipe(jade({client: true}))
+    .pipe(jade({client: true, pretty: true}))
     .pipe(wrap({deps: ['jade'], params: ['jade']}))
     .pipe(gulp.dest('./public/javascripts/app/templates/'));
 });

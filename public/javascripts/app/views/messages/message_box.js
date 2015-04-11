@@ -4,7 +4,7 @@
   define(function(require) {
     var Backbone, MessageBox, chat, messageBoxTemplate;
     Backbone = require('backbone');
-    messageBoxTemplate = require('templates/message_box');
+    messageBoxTemplate = require('templates/messages/message_box');
     chat = require('lib/chat')();
     return MessageBox = Backbone.View.extend({
       template: messageBoxTemplate,
@@ -12,18 +12,21 @@
       events: {
         'submit form[name=send_message]': 'sendMessage'
       },
-      sendMessage: (function(_this) {
-        return function(e) {
-          e.preventDefault();
-          return _this.chat.sendMessage(currentMessage());
-        };
-      })(this),
+      sendMessage: function(e) {
+        e.preventDefault();
+        chat.sendMessage(this.currentMessage());
+        this.clearBox();
+        return false;
+      },
       currentMessage: function() {
         return this.msgBox.val();
       },
+      clearBox: function() {
+        return this.msgBox.val('');
+      },
       render: function() {
         this.$el.append(this.template());
-        this.msgBox = this.$el.find('inpu[name=message]');
+        this.msgBox = this.$el.find('input[name=message]');
         return this;
       }
     });

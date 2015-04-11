@@ -2,7 +2,7 @@
 define (require) ->
 
   Backbone            = require 'backbone'
-  messageBoxTemplate  = require 'templates/message_box'
+  messageBoxTemplate  = require 'templates/messages/message_box'
   chat                = require('lib/chat')() # chat singleton.
 
   MessageBox = Backbone.View.extend
@@ -14,14 +14,19 @@ define (require) ->
     events:
       'submit form[name=send_message]': 'sendMessage'
 
-    sendMessage: (e) =>
+    sendMessage: (e) ->
       e.preventDefault()
-      @chat.sendMessage currentMessage()
+      chat.sendMessage @.currentMessage()
+      @.clearBox()
+      false
 
     currentMessage: () ->
       @msgBox.val()
 
+    clearBox: () ->
+      @msgBox.val ''
+
     render: () ->
       @.$el.append @.template()
-      @msgBox = @.$el.find('inpu[name=message]')
+      @msgBox = @.$el.find('input[name=message]')
       return @

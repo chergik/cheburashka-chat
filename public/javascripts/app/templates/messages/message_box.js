@@ -5,7 +5,8 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 
-buf.push("<form name=\"send_message\" method=\"post\"><input type=\"text\" name=\"message\"/><input type=\"submit\" value=\"say\"/></form>");;return buf.join("");
+var jade_indent = [];
+buf.push("\n<form name=\"send_message\" method=\"post\">\n  <input type=\"text\" name=\"message\"/>\n  <input type=\"submit\" value=\"say\"/>\n</form>");;return buf.join("");
 };
 
 });

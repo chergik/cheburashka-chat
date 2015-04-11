@@ -5,12 +5,12 @@
     var Backbone, User, UserView, userTemplate;
     Backbone = require('backbone');
     User = require('models/user');
-    userTemplate = require('templates/user');
+    userTemplate = require('templates/users/user');
     return UserView = Backbone.View.extend({
       tagName: 'li',
       template: userTemplate,
       render: function() {
-        this.$el.html(this.template.render(this.model.attributes));
+        this.$el.html(this.template(this.model.attributes));
         return this;
       }
     });

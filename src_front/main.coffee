@@ -12,6 +12,7 @@ requirejs.config
     underscore: '../lib/underscore'
     backbone:   '../lib/backbone'
     socketio:   '../lib/socket.io'
+    jade:       '../lib/jade'
     main:       '../main'
 
   # Setup dependant and other weird tricks.
@@ -21,7 +22,7 @@ requirejs.config
     backbone:
 
       # Load dependencies asynchronously first.
-      deps: ['jquery', 'underscore']
+      deps: ['jquery', 'underscore', 'jade']
       exports: 'Backbone'
 
     # Map global underscore '_' to the local '_'.

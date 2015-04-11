@@ -8,7 +8,7 @@ define (require) ->
       @.setupHandlers()
 
     sendMessage: (msg) ->
-      io.emit 'message', msg
+      io.emit 'chat message', msg
 
     joinUser: (user) ->
       io.emit 'join', user
@@ -17,12 +17,11 @@ define (require) ->
     # This event is caught on the server and emmited to the client.
 
     setupHandlers: () ->
-      io.on 'message', (data) -> ebus.trigger 'message', data # {user: "name", message: "some message"}
-      io.on 'join',    (user) -> ebus.trigger 'join',    user
-      io.on 'left',    (user) -> ebus.trigger 'left',    user
+      io.on 'chat message', (data) -> ebus.trigger 'message', data # {user: "name", message: "some message"}
+      io.on 'join',         (user) -> ebus.trigger 'join',    user
+      io.on 'left',         (user) -> ebus.trigger 'left',    user
 
   chat = new Chat
 
   () -> chat
-
 

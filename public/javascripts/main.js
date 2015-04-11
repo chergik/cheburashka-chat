@@ -8,11 +8,12 @@
       underscore: '../lib/underscore',
       backbone: '../lib/backbone',
       socketio: '../lib/socket.io',
+      jade: '../lib/jade',
       main: '../main'
     },
     shim: {
       backbone: {
-        deps: ['jquery', 'underscore'],
+        deps: ['jquery', 'underscore', 'jade'],
         exports: 'Backbone'
       },
       underscore: {
