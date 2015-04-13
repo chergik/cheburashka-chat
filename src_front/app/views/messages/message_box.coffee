@@ -3,7 +3,7 @@ define (require) ->
 
   Backbone            = require 'backbone'
   messageBoxTemplate  = require 'templates/messages/message_box'
-  chat                = require('lib/chat')() # chat singleton.
+  ebus                = require('lib/event_bus')()
 
   MessageBox = Backbone.View.extend
 
@@ -16,7 +16,7 @@ define (require) ->
 
     sendMessage: (e) ->
       e.preventDefault()
-      chat.sendMessage @.currentMessage()
+      ebus.trigger 'client:message', @.currentMessage()
       @.clearBox()
       false
 

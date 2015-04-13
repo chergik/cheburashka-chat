@@ -8,13 +8,15 @@ define (require) ->
   UsersListView         = require 'views/users/users_list'
   MessagesListView      = require 'views/messages/messages_list'
   appTemplate           = require 'templates/app'
-  chat                  = require('lib/chat')() # chat singleton.
+  Chat                  = require('lib/chat') # chat.
+  ebus                  = require('lib/event_bus')() # ebus singleton.
 
   AppView = Backbone.View.extend
     el: '#app'
     template: appTemplate
 
     initialize: () ->
+      chat = new Chat()
 
     render: () ->
 
@@ -36,6 +38,6 @@ define (require) ->
       @.$el.find('#message-box').append   messageBoxView.render().el
 
       # Add user to the chatroom.
-      chat.joinUser @username
+      ebus.trigger 'client:join', @username
 
       return @
