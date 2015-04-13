@@ -34,5 +34,5 @@ Happy lame-chatting, sir!
  - redis/serverside interaction error handling
  - login page / backbone router
  - serverside views generation (only templates are compiled to js)
- - build file of any kind
+ - build file of any kind (besides one for compiling jade tepmlates)
  - styles of any kind (twitter-bootstrap could be an easy fit)
