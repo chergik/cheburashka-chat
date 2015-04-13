@@ -24,3 +24,10 @@ using the ``gulp templates`` command (see ``gulpfile.js`` for details).
 
 In order to launch express run ``nodemon --watch '**/*.*' bin/www``. Then go to localhost:3000 and enter your name in the prompt.
 Happy lame-chatting, sir!
+
+## What it does not have:
+ - redis/serverside interaction error handling
+ - login page / backbone router
+ - serverside views generation (only templates are compiled to js)
+ - build file of any kind
+ - styles of any kind (twitter-bootstrap could be an easy fit)
