@@ -22,7 +22,14 @@ chatserver = (io) ->
 
   # Add user.
   addUser = (username, cb) ->
-    redisClient.sadd 'users', username, cb
+
+    # If given username is already in the set, refuse!
+    console.log "check if user \"#{username}\" is member"
+    redisClient.sismember 'users', username, (err, isMember) =>
+      console.log (if isMember then "already exists" else "valid name")
+      if isMember then cb(true, null)
+      else redisClient.sadd 'users', username, cb
+
   # New browser socket.io connection established.
   io.on 'connection', (client) ->
 
@@ -58,6 +65,13 @@ chatserver = (io) ->
 
       # Add user to Redis and message other users that newbie joined.
       addUser client.name, (error, value) ->
+
+        if error
+          console.log "ERROR"
+          client.emit 'notification',
+            type:     'warning'
+            message:  "Sorry, user name \"#{username}\" is taken. Please choose another one."
+          return
 
         greeting = "User #{client.name} joined."
         console.log greeting

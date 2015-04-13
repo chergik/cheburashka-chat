@@ -1,15 +1,17 @@
 'use strict'
 define (require) ->
 
-  Backbone              = require 'backbone'
-  UsersCollection       = require 'collections/users'
-  MessagesCollection    = require 'collections/messages'
-  MessageBoxView        = require 'views/messages/message_box'
-  UsersListView         = require 'views/users/users_list'
-  MessagesListView      = require 'views/messages/messages_list'
-  appTemplate           = require 'templates/app'
-  Chat                  = require('lib/chat') # chat.
-  ebus                  = require('lib/event_bus')() # ebus singleton.
+  Backbone                = require 'backbone'
+  UsersCollection         = require 'collections/users'
+  MessagesCollection      = require 'collections/messages'
+  NotificationsCollection = require 'collections/notifications'
+  MessageBoxView          = require 'views/messages/message_box'
+  NotificationsListView   = require 'views/notifications/notifications_list'
+  UsersListView           = require 'views/users/users_list'
+  MessagesListView        = require 'views/messages/messages_list'
+  appTemplate             = require 'templates/app'
+  Chat                    = require 'lib/chat'
+  ebus                    = require('lib/event_bus')() # ebus singleton.
 
   AppView = Backbone.View.extend
     el: '#app'
@@ -19,6 +21,9 @@ define (require) ->
       chat = new Chat()
 
     render: () ->
+
+      # Notifications.
+      notificationsListView = new NotificationsListView(collection: new NotificationsCollection())
 
       # Users in the chat room.
       usersListView = new UsersListView(collection: new UsersCollection())
@@ -33,9 +38,10 @@ define (require) ->
       @username = prompt "What is your name?"
 
       @.$el.html @.template(user: @username)
-      @.$el.find('#users-list').append    usersListView.render().el
-      @.$el.find('#messages-list').append messagesListView.render().el
-      @.$el.find('#message-box').append   messageBoxView.render().el
+      @.$el.find('#notifications-list').append notificationsListView.render().el
+      @.$el.find('#users-list').append         usersListView.render().el
+      @.$el.find('#messages-list').append      messagesListView.render().el
+      @.$el.find('#message-box').append        messageBoxView.render().el
 
       # Add user to the chatroom.
       ebus.trigger 'client:join', @username

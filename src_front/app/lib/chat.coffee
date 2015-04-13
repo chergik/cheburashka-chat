@@ -22,6 +22,7 @@ define (require) ->
       @io.on 'chat message', (data) -> ebus.trigger 'message', data # {user: "name", message: "some message"}
       @io.on 'join',         (user) -> ebus.trigger 'join',    user
       @io.on 'left',         (user) -> ebus.trigger 'left',    user
+      @io.on 'notification', (notification) -> ebus.trigger 'notification', notification
 
     setupEventBusHandlers: () ->
       ebus.on 'client:message', (msg) =>
