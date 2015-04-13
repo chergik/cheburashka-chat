@@ -10,7 +10,6 @@ define (require) ->
   UsersListView           = require 'views/users/users_list'
   MessagesListView        = require 'views/messages/messages_list'
   appTemplate             = require 'templates/app'
-  Chat                    = require 'lib/chat'
   ebus                    = require('lib/event_bus')() # ebus singleton.
 
   AppView = Backbone.View.extend
@@ -18,7 +17,6 @@ define (require) ->
     template: appTemplate
 
     initialize: () ->
-      chat = new Chat()
 
     render: () ->
 

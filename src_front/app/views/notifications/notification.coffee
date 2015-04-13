@@ -6,8 +6,6 @@ define (require) ->
 
   NotificationView = Backbone.View.extend
 
-    tagName: 'li'
-
     initialize: () ->
       @.listenTo @.model, 'destroy', () ->
         @.remove()
@@ -18,7 +16,7 @@ define (require) ->
       'click div.dismiss': 'dismiss'
 
     render: () ->
-      @.$el.append @.template(@.model.attributes)
+      @.setElement @.template(@.model.attributes)
       return @
 
     dismiss: () ->

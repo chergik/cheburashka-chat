@@ -6,10 +6,9 @@ define (require) ->
   messageTemplate = require 'templates/messages/message'
 
   MessageView = Backbone.View.extend
-    tagName: 'li'
 
     template: messageTemplate
 
     render: () ->
-      @.$el.html @.template(@.model.attributes)
+      @.setElement @.template(@.model.attributes)
       return @

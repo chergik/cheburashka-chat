@@ -6,11 +6,10 @@ define (require) ->
   userTemplate = require 'templates/users/user'
 
   UserView = Backbone.View.extend
-    tagName: 'li'
 
     template: userTemplate
 
     render: ->
-      @.$el.html @.template(@.model.attributes)
+      @.setElement @.template(@.model.attributes)
       return @
 

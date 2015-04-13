@@ -36,8 +36,12 @@ requirejs.config
   waitSeconds: 0
 
 define (require) ->
+
+  Chat    = require 'lib/chat'
   AppView = require 'views/app'
+
   $ ->
+    chat = new Chat()
     appView = new AppView
     appView.render()
 

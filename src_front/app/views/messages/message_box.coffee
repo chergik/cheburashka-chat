@@ -27,6 +27,6 @@ define (require) ->
       @msgBox.val ''
 
     render: () ->
-      @.$el.append @.template()
+      @.setElement @.template()
       @msgBox = @.$el.find('input[name=message]')
       return @
