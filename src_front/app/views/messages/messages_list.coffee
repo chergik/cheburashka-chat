@@ -9,7 +9,6 @@ define (require) ->
 
   MessagesListView = Backbone.View.extend
     tagName: 'ul'
-    id:      'messages_list'
 
     template: messagesListTemplate
 

@@ -9,7 +9,6 @@ define (require) ->
 
   UsersListView = Backbone.View.extend
     tagName: 'ul'
-    id:      'users_list'
 
     template: usersListTemplate
 
