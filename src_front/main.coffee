@@ -13,6 +13,7 @@ requirejs.config
     backbone:   '../lib/backbone'
     socketio:   '../lib/socket.io'
     jade:       '../lib/jade'
+    bootstrap:  '../lib/bootstrap'
     main:       '../main'
 
   # Setup dependant and other weird tricks.
@@ -31,6 +32,10 @@ requirejs.config
 
     socketio:
       exports: 'io'
+
+    # Bootstrap has AMD support, so this shim entry is just for deps.
+    bootstrap:
+      deps: ['jquery']
 
   # Weird trick to make require.js work and do not hang on lob loading.
   waitSeconds: 0

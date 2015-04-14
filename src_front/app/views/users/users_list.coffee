@@ -10,6 +10,8 @@ define (require) ->
   UsersListView = Backbone.View.extend
     tagName: 'ul'
 
+    className: 'list-unstyled'
+
     template: usersListTemplate
 
     initialize: () ->

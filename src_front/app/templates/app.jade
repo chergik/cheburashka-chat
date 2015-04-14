@@ -1,7 +1,19 @@
-h1.chat-user= user
-div#notifications-list
-h2.users-list Users
-div#users-list
-h2.messages-list Messages
-div#messages-list
-div#message-box
+div.container
+
+  div(class="row")
+    div#notifications-list(class="col-xs-12")
+
+  div(class="row")
+    div(class="col-xs-12")
+      h1.chat-user= user
+
+  div(class="row")
+
+    div(class="col-xs-12 col-sm-4")
+      h2.users-list Users
+      div#users-list
+
+    div(class="col-xs-12 col-sm-8")
+      h2.messages-list Messages
+      div#messages-list
+      div#message-box

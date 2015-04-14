@@ -5,6 +5,7 @@ define (require) ->
   notificationTemplate = require 'templates/notifications/notification'
 
   NotificationView = Backbone.View.extend
+    className: 'notification'
 
     initialize: () ->
       @.listenTo @.model, 'destroy', () ->
@@ -16,7 +17,7 @@ define (require) ->
       'click div.dismiss': 'dismiss'
 
     render: () ->
-      @.setElement @.template(@.model.attributes)
+      @.$el.html @.template(@.model.attributes)
       return @
 
     dismiss: () ->

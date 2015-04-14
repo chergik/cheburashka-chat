@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+div#messages-list {
+  height: 400px;
+  min-width: 200px;
+  overflow: scroll;
+  border-color: rgba(108, 106, 106, 0.16);
+  border-style: solid;
+  border-width: 1px;
+}

@@ -7,9 +7,13 @@ define (require) ->
 
   UserView = Backbone.View.extend
 
+    tagName: 'li'
+
+    className: 'user'
+
     template: userTemplate
 
     render: ->
-      @.setElement @.template(@.model.attributes)
+      @.$el.html @.template(@.model.attributes)
       return @
 

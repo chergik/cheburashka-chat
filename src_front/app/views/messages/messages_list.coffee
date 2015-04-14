@@ -8,7 +8,10 @@ define (require) ->
   ebus                  = require('lib/event_bus')() # EventBus singelton.
 
   MessagesListView = Backbone.View.extend
+
     tagName: 'ul'
+
+    className: 'list-unstyled'
 
     template: messagesListTemplate
 
@@ -39,6 +42,11 @@ define (require) ->
     addOne: (model) ->
       newMessage = new MessageView(model: model)
       @.$el.append newMessage.render().el
+
+      # Scroll parent div to the bottom (i.e. last message).
+      @.$el.parent().each (i, parent) ->
+        $(parent).stop().animate({scrollTop: parent.scrollHeight}, 900)
+
 
     addAll: () ->
       @.addOne(messageModel) for messageModel in @.collection.models
