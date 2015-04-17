@@ -20,11 +20,11 @@
 
 ## Build:
 
-Install ``Node.js``
+Install ``node.js``, ``npm``
 
 Install and run ``Redis``
 
-Then install libraries so that you can run them globally: ``sudo npm install coffee gulp nodemon -g``.
+Then install libraries so that you can run them globally: ``sudo npm install coffee-script gulp nodemon -g``.
 
 Generate javascript files by ``coffee -wcbo ./ ./src_node`` and ``coffee -wco ./public/javascripts ./src_front``.
 Templates for both backend and frontend are based on Jade. For the frontend pre-compile templates into javascript functions functions using ``gulp templates`` command (see ``gulpfile.js`` for details).
